@@ -21,15 +21,12 @@ const useStyles = makeStyles(() => ({
 }));
 
 const Topbar = (props) => {
-  const { className, user, ...rest } = props;
+  const { className, user } = props;
 
   const classes = useStyles();
 
-  console.log('????', user);
-
   return (
     <AppBar
-      {...rest}
       className={clsx(classes.root, className)}
       color="secondary"
     >
@@ -58,7 +55,11 @@ const Topbar = (props) => {
 };
 
 Topbar.propTypes = {
-  className: PropTypes.string,
+  className: PropTypes.string.isRequired,
+  user: PropTypes.shape({
+    login: PropTypes.string,
+    avatar_url: PropTypes.string,
+  }).isRequired,
 };
 
 export default Topbar;

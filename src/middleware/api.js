@@ -40,8 +40,8 @@ const apiMiddleware = ({ dispatch }) => (next) => (action) => {
       headers,
       [dataOrParams]: data,
     })
-    .then(({ data }) => {
-      dispatch(onSuccess(data));
+    .then(({ data: res }) => {
+      dispatch(onSuccess(res));
     })
     .catch((error) => {
       dispatch(apiError(error));

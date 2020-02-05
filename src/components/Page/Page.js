@@ -3,13 +3,11 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import PropTypes from 'prop-types';
 
-import useRouter from 'utils/useRouter';
-
 const Page = (props) => {
-  const { title, children, ...rest } = props;
+  const { title, children, className } = props;
 
   return (
-    <div {...rest}>
+    <div className={className}>
       <Helmet>
         <title>{title}</title>
       </Helmet>
@@ -19,8 +17,9 @@ const Page = (props) => {
 };
 
 Page.propTypes = {
-  children: PropTypes.node,
-  title: PropTypes.string,
+  children: PropTypes.node.isRequired,
+  title: PropTypes.string.isRequired,
+  className: PropTypes.string.isRequired,
 };
 
 export default Page;

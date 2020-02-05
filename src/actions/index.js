@@ -37,6 +37,7 @@ export const fetchUserInfo = (accessToken) => {
     url: 'https://api.spork.mindcode.ru/user',
     accessToken,
     onSuccess: setUserInfo,
+    // eslint-disable-next-line
     onFailure: () => console.log('[api] -> [user] -> error'),
     label: FETCH_USER_INFO,
   });

@@ -12,6 +12,7 @@ import { I18nextProvider } from 'react-i18next';
 import configureI18n from './i18n';
 import theme from './theme';
 import GlobalStyle from './theme/global';
+// eslint-disable-next-line
 import routes from './routes';
 import store from './store';
 

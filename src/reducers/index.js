@@ -5,8 +5,8 @@ import {
   FETCH_USER_INFO,
 } from '../actions/types';
 
+// eslint-disable-next-line consistent-return
 export default (state = {}, action) => {
-  console.log('[action type] -> ', action.type);
   switch (action.type) {
     case SET_USER_INFO:
       return { user: action.payload };
