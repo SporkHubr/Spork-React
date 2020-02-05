@@ -1,10 +1,10 @@
-import React, { Fragment, Suspense, useCallback } from 'react';
+import React, { Suspense } from 'react';
 import { renderRoutes } from 'react-router-config';
 import { useSelector, useDispatch } from 'react-redux';
-import PropTypes from 'prop-types';
 import qs from 'query-string';
 import { makeStyles } from '@material-ui/styles';
 import { LinearProgress } from '@material-ui/core';
+import ReactRouterPropTypes from 'react-router-prop-types';
 
 import { fetchUserInfo } from '../../actions';
 import { Topbar } from './components';
@@ -20,14 +20,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Main = (props) => {
-  const { route, location } = props;
+  const { route, location, history } = props;
 
   const classes = useStyles();
   const dispatch = useDispatch();
   const { token } = qs.parse(location.search, { ignoreQueryPrefix: true });
   if (token) {
     dispatch(fetchUserInfo(token));
-    props.history.push('/');
+    history.push('/');
   }
 
   const user = useSelector((state) => state.user);
@@ -45,8 +45,9 @@ const Main = (props) => {
 };
 
 Main.propTypes = {
-  location: PropTypes.object,
-  route: PropTypes.object,
+  location: ReactRouterPropTypes.location.isRequired,
+  route: ReactRouterPropTypes.route.isRequired,
+  history: ReactRouterPropTypes.history.isRequired,
 };
 
 export default Main;
