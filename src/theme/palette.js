@@ -14,5 +14,4 @@ export default {
     dark: '#586069',
     contrastText: '#000',
   },
-
 };

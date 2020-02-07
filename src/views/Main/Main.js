@@ -1,83 +1,63 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/styles';
+import styled from 'styled-components';
+import { useTheme } from '@material-ui/styles';
 import {
-  Card,
-  CardContent,
+  Grid,
   Typography,
   TextField,
   InputAdornment,
 } from '@material-ui/core';
-import AccountCircle from '@material-ui/icons/AccountCircle';
 
 import { useTranslation } from 'react-i18next';
-
-import { Page } from 'components';
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    height: '100%',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: theme.spacing(6, 2),
-  },
-  textField: {
-    margin: theme.spacing(1),
-  },
-  card: {
-    width: theme.breakpoints.values.sm,
-    maxWidth: '100%',
-    overflow: 'unset',
-    display: 'flex',
-    position: 'relative',
-    '& > *': {
-      flexGrow: 1,
-      flexBasis: '50%',
-      width: '50%',
-    },
-  },
-  content: {
-    padding: theme.spacing(8, 4, 3, 4),
-  },
-}));
+import { Page, GithubIcon } from 'components';
 
 const Main = () => {
-  const classes = useStyles();
+  const theme = useTheme();
   const { t } = useTranslation();
 
+  const PageMain = styled(Page)`
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: ${theme.spacing(6, 2)};
+  `;
+
+  const RepoField = styled(TextField)`
+    background-color: ${theme.palette.secondary.main};
+    margin: ${theme.spacing(1)};
+  `;
+
   return (
-    <Page
-      className={classes.root}
-      title={t('mainPage.pageTitle')}
-    >
-      <Card className={classes.card}>
-        <CardContent className={classes.content}>
-          <Typography gutterBottom variant="h4">
+    <PageMain title={t('mainPage.pageTitle')}>
+      <Grid
+        container
+        direction="row"
+        justify="center"
+        alignItems="center"
+      >
+        <Grid item xs={6}>
+          <Typography variant="h6">
             {t('mainPage.contentTitle')}
           </Typography>
-          <Typography variant="subtitle2">
+          <Typography gutterBottom variant="subtitle1">
             {t('mainPage.contentDescription')}
           </Typography>
-
-
-          <TextField
-            id="outlined-password-input"
-            class={classes.textField}
-            autoComplete="current-password"
+          <RepoField
+            fullWidth
             variant="outlined"
             placeholder="github/linguist"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
-                  <AccountCircle />
+                  <GithubIcon />
                 </InputAdornment>
               ),
             }}
           />
-
-        </CardContent>
-      </Card>
-    </Page>
+        </Grid>
+      </Grid>
+    </PageMain>
   );
 };
 
