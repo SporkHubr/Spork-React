@@ -6,7 +6,7 @@ import { LinearProgress } from '@material-ui/core';
 import { renderRoutes } from 'react-router-config';
 import { useSelector, useDispatch } from 'react-redux';
 import ReactRouterPropTypes from 'react-router-prop-types';
-import { fetchUserInfo } from '../../actions';
+import { fetchUserInfo } from 'actions';
 import { Topbar } from './components';
 
 
@@ -16,10 +16,9 @@ const Main = (props) => {
   const dispatch = useDispatch();
 
   const Conent = styled.main`
-    height: 100%;
-    paddingTop: 56;
+    padding-top: 56px;
     ${theme.breakpoints.up('sm')} {
-      paddingTop: 64;
+      padding-top: 64px;
     };
   `;
 
@@ -29,7 +28,6 @@ const Main = (props) => {
     history.push('/');
   }
 
-  // TODO: Rewrite to redux store
   const user = useSelector((state) => state.user);
 
   return (

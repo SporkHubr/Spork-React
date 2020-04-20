@@ -1,4 +1,10 @@
-import { SET_USER_INFO, API, FETCH_USER_INFO } from './types';
+import {
+  API,
+  SET_USER_INFO,
+  FETCH_USER_INFO,
+  SET_REPO_DEPS,
+  FETCH_REPO_DEPS,
+} from './types';
 
 const apiAction = ({
   url = '',
@@ -23,10 +29,6 @@ const apiAction = ({
   },
 });
 
-export const setUserToken = () => {
-
-};
-
 export const fetchUserInfo = (accessToken) => {
   const setUserInfo = (data) => ({
     type: SET_USER_INFO,
@@ -36,9 +38,26 @@ export const fetchUserInfo = (accessToken) => {
   return apiAction({
     url: 'https://api.spork.mindcode.ru/user',
     accessToken,
-    onSuccess: setUserInfo,
+    onSuccess: (data) => setUserInfo({ ...data, accessToken }),
     // eslint-disable-next-line
-    onFailure: () => console.log('[api] -> [user] -> error'),
+    onFailure: (err) => {console.log('[api] -> [user] -> error'); return {};},
     label: FETCH_USER_INFO,
+  });
+};
+
+export const fetchRepoDependencies = (urlRepo) => {
+  const setRepoDependecies = (data) => ({
+    type: SET_REPO_DEPS,
+    payload: data,
+  });
+
+  return apiAction({
+    method: 'POST',
+    url: 'https://api.spork.mindcode.ru/parse',
+    data: { urlRepo },
+    onSuccess: setRepoDependecies,
+    // eslint-disable-next-line
+    onFailure: (err) => {console.log('[api] -> [parse] -> error'); return {};},
+    label: FETCH_REPO_DEPS,
   });
 };

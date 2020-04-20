@@ -5,28 +5,35 @@ import {
   FETCH_USER_INFO,
 } from '../actions/types';
 
+const initialState = {
+  user: {},
+  loggedIn: false,
+};
+
 // eslint-disable-next-line consistent-return
-export default (state = {}, action) => {
+export default (state = initialState, action) => {
   switch (action.type) {
     case SET_USER_INFO:
-      return { user: action.payload };
+      console.log('SET_USER_INFO');
+      return { ...state, user: action.payload };
     case API_START:
+      console.log('API_START');
       if (action.payload === FETCH_USER_INFO) {
         return {
           ...state,
           isLoadingData: true,
         };
       }
-      break;
     case API_END:
+      console.log('API_END');
       if (action.payload === FETCH_USER_INFO) {
         return {
           ...state,
           isLoadingData: false,
         };
       }
-      break;
     default:
+      console.log('DEFAULT');
       return state;
   }
 };
