@@ -7,7 +7,7 @@ import {
   apiEnd,
 } from '../actions/api';
 
-const apiMiddleware = ({ dispatch }) => (next) => (action) => {
+const apiMiddleware = ({ dispatch, getState }) => (next) => (action) => {
   next(action);
 
   if (action.type !== API) return;
@@ -23,11 +23,16 @@ const apiMiddleware = ({ dispatch }) => (next) => (action) => {
     headers,
   } = action.payload;
   const dataOrParams = ['GET', 'DELETE'].includes(method) ? 'params' : 'data';
+  const state = getState();
+  const { user: { accessToken: stateToken } } = state;
 
   // axios default configs
   axios.defaults.baseURL = process.env.REACT_APP_BASE_URL || '';
   axios.defaults.headers.common['Content-Type'] = 'application/json';
-  axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
+
+  if (accessToken || stateToken) {
+    axios.defaults.headers.common.Authorization = `Bearer ${accessToken || stateToken}`;
+  }
 
   if (label) {
     dispatch(apiStart(label));

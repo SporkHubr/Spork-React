@@ -3,5 +3,8 @@
     "pageTitle": "Spork",
     "contentDescription": "that are eager to contribute. All around the globe.",
     "contentTitle": "Find open source developers"
+  },
+  "listDependencies": {
+    "title": "Choose interesting dependencies"
   }
 }
